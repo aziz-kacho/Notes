@@ -8,19 +8,6 @@
 
 
 
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/aziz"
-    android:text="insert"
-    android:layout_centerInParent="true"/>
-
-
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/salom"
-       android:layout_below="@+id/aziz"/>
 
 
 </RelativeLayout>
