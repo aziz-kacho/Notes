@@ -15,19 +15,19 @@ public class Note {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    public int id;
+    private int id;
 
     @ColumnInfo(name = "title")
     @NonNull
-    public String title;
+    private String title;
 
     @ColumnInfo(name = "text")
     @NonNull
-    public String text;
+    private String text;
 
 
     @ColumnInfo(name = "date")
-    public String date;
+    private String date;
 
 
     public Note() {
@@ -73,7 +73,6 @@ public class Note {
     public void setDate(String date) {
         this.date = date;
     }
-
 
 
 }

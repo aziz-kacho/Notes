@@ -7,5 +7,7 @@ import androidx.room.RoomDatabase;
 public abstract class DataBase extends RoomDatabase {
 
 
+
+
      public abstract NoteDao noteDao();
 }
