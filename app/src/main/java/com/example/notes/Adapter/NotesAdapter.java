@@ -1,5 +1,6 @@
 package com.example.notes.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notes.DataBase.Note;
 import com.example.notes.R;
+import com.example.notes.Repository;
 
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder>{
 
-    List<Note> list;
+    private List<Note> list;
+    private OnItemClickListener listener;
 
-    public NotesAdapter(List<Note> list) {
+
+    public NotesAdapter(List<Note> list, OnItemClickListener listener) {
         this.list = list;
+        this.listener = listener;
     }
-
 
     @Override
     public NotesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,20 +44,32 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         return list.size();
     }
 
-    class NotesViewHolder extends RecyclerView.ViewHolder{
+    class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titleTextView;
-
+        TextView noteDate;
 
         public NotesViewHolder(View view) {
             super(view);
             titleTextView = view.findViewById(R.id.titleNotes);
-        }
+            noteDate = view.findViewById(R.id.note_date);
 
+            view.setOnClickListener(this);
+        }
 
         public void bind(Note note) {
             titleTextView.setText(note.getTitle());
+            noteDate.setText(note.getDate());
         }
 
+
+        @Override
+        public void onClick(View v) {
+            listener.onItemClick(list.get(getAdapterPosition()));
+        }
+    }
+
+    public interface OnItemClickListener {
+        public void onItemClick(Note note);
     }
 }
 

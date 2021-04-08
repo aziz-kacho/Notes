@@ -8,17 +8,20 @@ import com.example.notes.DataBase.NoteDao;
 import java.util.List;
 
 public class Repository {
-  private DataBase dataBase;
+    private DataBase dataBase;
+    private NoteDao noteDao;
 
-        public Repository(){
-            this.dataBase = App.getApplication().getDataBase();
-        }
+    public Repository() {
+        this.dataBase = App.getApplication().getDataBase();
+        noteDao = dataBase.noteDao();
+    }
 
-  private NoteDao noteDao = dataBase.noteDao();
+    public List<Note> getListNotes() {
+        List<Note> list = noteDao.getAllNotes();
+        return list;
+    }
 
-
-    public List<Note> getListNotes(){
-         List<Note> list = noteDao.getAllNotes();
-    return list;
+    public void insertNewNote(Note note) {
+        noteDao.insertNewNote(note);
     }
 }
