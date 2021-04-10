@@ -1,10 +1,7 @@
 package com.example.notes.Adapter;
 
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.DialogInterface;
-=======
->>>>>>> 2ebcb7bb4a5525fd4821989266cc08f4fadf3fe9
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +26,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     private OnItemClickListener listener;
 
 
-<<<<<<< HEAD
 
     public NotesAdapter(List<Note> list, OnItemClickListener listener) {
         this.list = list;
@@ -37,13 +33,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     }
 
-=======
-    public NotesAdapter(List<Note> list, OnItemClickListener listener) {
-        this.list = list;
-        this.listener = listener;
-    }
-
->>>>>>> 2ebcb7bb4a5525fd4821989266cc08f4fadf3fe9
     @Override
     public NotesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notes, parent, false);
@@ -65,26 +54,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titleTextView;
         TextView noteDate;
-<<<<<<< HEAD
         ImageView delete;
-=======
->>>>>>> 2ebcb7bb4a5525fd4821989266cc08f4fadf3fe9
 
         public NotesViewHolder(View view) {
             super(view);
             titleTextView = view.findViewById(R.id.titleNotes);
             noteDate = view.findViewById(R.id.note_date);
-<<<<<<< HEAD
 
 
 
 
 
-=======
->>>>>>> 2ebcb7bb4a5525fd4821989266cc08f4fadf3fe9
 
-            view.setOnClickListener(this);
-        }
 
             view.setOnClickListener(this);
         }
@@ -92,7 +73,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         public void bind(Note note) {
             titleTextView.setText(note.getTitle());
             noteDate.setText(note.getDate());
-<<<<<<< HEAD
         }
 
 
@@ -102,15 +82,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         }
 
 
-=======
-        }
-
-
-        @Override
-        public void onClick(View v) {
-            listener.onItemClick(list.get(getAdapterPosition()));
-        }
->>>>>>> 2ebcb7bb4a5525fd4821989266cc08f4fadf3fe9
     }
 
     public interface OnItemClickListener {

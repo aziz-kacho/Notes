@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Update;
 
@@ -45,7 +47,30 @@ public class SecondActivity extends AppCompatActivity {
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+//                finish();
+                if (TextUtils.isEmpty(getTitleText()) && TextUtils.isEmpty(getDescriptionText())){
+                    finish();
+
+                }else {
+                    AlertDialog.Builder back_button = new AlertDialog.Builder(SecondActivity.this);
+                    back_button.setMessage("Вы хотите выйти не сохроняя?")
+                            .setCancelable(false)
+                            .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog button_back = back_button.create();
+                    button_back.setTitle("Выйти");
+                    button_back.show();
+                }
             }
         });
 
@@ -64,6 +89,12 @@ public class SecondActivity extends AppCompatActivity {
                 if(!TextUtils.isEmpty(getTitleText()) && !TextUtils.isEmpty(getDescriptionText())){
                         InsertAsync insertAsync = new InsertAsync();
                         insertAsync.execute();
+
+                        Intent i = new Intent(SecondActivity.this, MainActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+                        finish();
+
                 }else {
                     Toast.makeText(SecondActivity.this, "Сначала заполните поля", Toast.LENGTH_SHORT).show();
                 }
