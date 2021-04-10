@@ -15,6 +15,7 @@ public class Repository {
         this.dataBase = App.getApplication().getDataBase();
         noteDao = dataBase.noteDao();
     }
+<<<<<<< HEAD
 
     public List<Note> getListNotes() {
         List<Note> list = noteDao.getAllNotes();
@@ -27,5 +28,15 @@ public class Repository {
 
     public void insertUpdateNote(Note note){
         noteDao.update(note);
+=======
+
+    public List<Note> getListNotes() {
+        List<Note> list = noteDao.getAllNotes();
+        return list;
+    }
+
+    public void insertNewNote(Note note) {
+        noteDao.insertNewNote(note);
+>>>>>>> 2ebcb7bb4a5525fd4821989266cc08f4fadf3fe9
     }
 }
