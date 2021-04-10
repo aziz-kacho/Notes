@@ -74,6 +74,32 @@ public class MainActivity extends AppCompatActivity {
         notesAsync.execute();
     }
 
+            //Запрос на удаление..
+    private NotesAdapter.OnDeleteClickListener onDeleteClickListener =
+            new NotesAdapter.OnDeleteClickListener() {
+                @Override
+                public void onDeleteClick(ImageView deleting) {
+                    AlertDialog.Builder back_button = new AlertDialog.Builder(MainActivity.this);
+                    back_button.setMessage("Вы действительно хотите удалить заметку?")
+                            .setCancelable(false)
+                            .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //надо удалить запись
+                                }
+                            })
+                            .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog button_back = back_button.create();
+                    button_back.setTitle("Удаление");
+                    button_back.show();
+                }
+            };
+
     private NotesAdapter.OnItemClickListener onItemClickListener =
             new NotesAdapter.OnItemClickListener() {
 
@@ -96,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected List<Note> doInBackground(Void... voids) {
 //            repository.insertNewNote(new Note("Some second note", "Some note here. Hello world, this is my new note"));
-
             List<Note> list = repository.getListNotes();
             return list;
         }
@@ -104,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<Note> list) {
             super.onPostExecute(list);
-            notesAdapter = new NotesAdapter(list, onItemClickListener);
+            notesAdapter = new NotesAdapter(list,onDeleteClickListener , onItemClickListener);
             recyclerView.setAdapter(notesAdapter);
         }
     }

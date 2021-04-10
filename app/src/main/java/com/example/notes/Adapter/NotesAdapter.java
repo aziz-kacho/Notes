@@ -24,13 +24,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     private List<Note> list;
     private OnItemClickListener listener;
+    private ImageView deleting;
+    private OnDeleteClickListener onDeleteClickListener;
 
-
-
-    public NotesAdapter(List<Note> list, OnItemClickListener listener) {
+    public NotesAdapter(List<Note> list,OnDeleteClickListener onDeleteClickListener, OnItemClickListener listener) {
         this.list = list;
+        this.onDeleteClickListener = onDeleteClickListener;
         this.listener = listener;
-
     }
 
     @Override
@@ -54,17 +54,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titleTextView;
         TextView noteDate;
-        ImageView delete;
 
         public NotesViewHolder(View view) {
             super(view);
             titleTextView = view.findViewById(R.id.titleNotes);
             noteDate = view.findViewById(R.id.note_date);
-
-
-
-
-
+            deleting = view.findViewById(R.id.delete);
 
 
             view.setOnClickListener(this);
@@ -75,20 +70,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             noteDate.setText(note.getDate());
         }
 
-
         @Override
         public void onClick(View v) {
             listener.onItemClick(list.get(getAdapterPosition()));
+            onDeleteClickListener.onDeleteClick(deleting);
         }
-
-
+    }
+    public interface OnDeleteClickListener{
+        public void onDeleteClick(ImageView deleting);
     }
 
     public interface OnItemClickListener {
         public void onItemClick(Note note);
     }
-
-
-
-
 }
