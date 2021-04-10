@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 @Entity
@@ -37,6 +38,18 @@ public class Note {
     public Note(String title, String text) {
         this.title = title;
         this.text = text;
+
+        // Получаем дату
+        String date = getCurrentDate();
+        this.date = date;
+    }
+
+    private String getCurrentDate() {
+        Calendar calendar = Calendar.getInstance(); // 08.04.2021
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return day + "." + month + "." + year;
     }
 
     //Getter
