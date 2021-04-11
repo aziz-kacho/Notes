@@ -21,16 +21,19 @@ public interface NoteDao {
 
 
     //    этот метод вытащит все записи из таблицы Note
-    @Query("select * from `Note`")
+    @Query("select * from `Note` order by `id` desc")
     public List<Note> getAllNotes();
 
 
     //  обновление записи
-    @Update
-    public void update(Note note);
+    @Query("UPDATE `Note` SET title = :title, text = :text WHERE `id` = :id")
+    public void update(String title, String text, int id);
 
 
     //  удаление записи
     @Delete
     void delete(Note note);
+
+    @Query("DELETE FROM Note")
+    void deleteAllNotes();
 }
