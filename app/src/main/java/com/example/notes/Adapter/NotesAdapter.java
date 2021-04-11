@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,13 +25,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     private List<Note> list;
     private OnItemClickListener listener;
-    private ImageView deleting;
-    private OnDeleteClickListener onDeleteClickListener;
 
-    public NotesAdapter(List<Note> list,OnDeleteClickListener onDeleteClickListener, OnItemClickListener listener) {
-        this.list = list;
-        this.onDeleteClickListener = onDeleteClickListener;
+    public NotesAdapter(OnItemClickListener listener) {
         this.listener = listener;
+    }
+
+    public void setList(List<Note> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -42,27 +44,37 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     @Override
     public void onBindViewHolder(NotesViewHolder viewHolder, int position) {
-        Note note = list.get(position);
-        viewHolder.bind(note);
+        if(list != null) {
+            Note note = list.get(position);
+            viewHolder.bind(note);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        if(list != null)
+            return list.size();
+        return 0;
     }
 
     class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titleTextView;
         TextView noteDate;
+        ImageButton deleteButton;
 
         public NotesViewHolder(View view) {
             super(view);
             titleTextView = view.findViewById(R.id.titleNotes);
             noteDate = view.findViewById(R.id.note_date);
-            deleting = view.findViewById(R.id.delete);
-
+            deleteButton = view.findViewById(R.id.delete);
 
             view.setOnClickListener(this);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onDeleteClick(list.get(getAdapterPosition()));
+                }
+            });
         }
 
         public void bind(Note note) {
@@ -73,14 +85,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         @Override
         public void onClick(View v) {
             listener.onItemClick(list.get(getAdapterPosition()));
-            onDeleteClickListener.onDeleteClick(deleting);
         }
-    }
-    public interface OnDeleteClickListener{
-        public void onDeleteClick(ImageView deleting);
     }
 
     public interface OnItemClickListener {
         public void onItemClick(Note note);
+        public void onDeleteClick(Note note);
     }
 }

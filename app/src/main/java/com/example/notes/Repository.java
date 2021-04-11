@@ -28,4 +28,8 @@ public class Repository {
     public void insertUpdateNote(Note note){
         noteDao.update(note);
     }
+
+    public void deleteNote(Note note) {
+        noteDao.delete(note);
+    }
 }
