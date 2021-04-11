@@ -25,7 +25,15 @@ public class Repository {
         noteDao.insertNewNote(note);
     }
 
-    public void insertUpdateNote(Note note){
-        noteDao.update(note);
+    public void updateNote(String title, String text, int id){
+        noteDao.update(title, text, id);
+    }
+
+    public void deleteNote(Note note) {
+        noteDao.delete(note);
+    }
+
+    public void deleteAll() {
+        noteDao.deleteAllNotes();
     }
 }
